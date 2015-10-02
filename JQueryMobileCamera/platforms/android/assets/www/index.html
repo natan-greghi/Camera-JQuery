@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" type="text/css" href="css/theme-classic.css" />
      <script type="text/javascript" src="cordova.js"></script>
+     <script type="text/javascript" src="cordova_plugin.js"></script>
     <title>Jquery Mobile</title>
 </head>
 <style>
@@ -86,7 +87,8 @@ filter: sepia(100%);
     
              // Take picture using device camera and retrieve image as base64-encoded string
              function capturePhoto() {
-              navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, allowEdit : true, saveToPhotoAlbum: true,destinationType: destinationType.DATA_URL});
+              navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, allowEdit : true,
+ destinationType: destinationType.DATA_URL, saveToPhotoAlbum:true });
              }
     
              // Called if something bad happens. 
