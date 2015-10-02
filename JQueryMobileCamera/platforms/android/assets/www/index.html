@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/theme-classic.css" />
+     <script type="text/javascript" src="cordova.js"></script>
+    <title>Jquery Mobile</title>
+</head>
+<style>
+ .filter-sepia {
+  
+  -webkit-filter: sepia(100%);
+   -moz-filter: sepia(100%);
+    -ms-filter: sepia(100%);
+     -o-filter: sepia(100%);
+filter: sepia(100%);
+}
+
+.filter-grayscale {
+  -webkit-filter: grayscale(1);
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: url(#greyscale);
+  filter: gray;
+  border-radius: 50px;
+}
+</style>
+<body>
+
+    <div data-role="page" id="home">
+        <div data-role="header" data-theme="b">
+          <h1> Make Your Photo App!</h1>  
+        </div>
+
+        <div data-role="content" id="conteudo">
+            <button onclick="capturePhoto();">Capture Photo</button> <br>
+            <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Procurar Fotos</button>
+         <img style="width:100%" id="largeImage" src="" /> <br>
+            <button id="btnsepia"class="ui-btn ui-btn-inline">Sépia</button>
+            <button id="btnblack" class="ui-btn ui-btn-inline">Preto e Branco</button>
+            <button id="btnoriginal" class="ui-btn ui-btn-inline">Original</button>
+        </div>
+        <div data-role="footer" id="camera-footer" data-theme="b" data-position="fixed">
+            <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-camera ui-btn-icon-notext"></a>
+        </div>
+    </div>
+
+    
+   
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script>
+
+     document.getElementById("btnsepia").onclick = function(){
+      $("#largeImage").removeClass("filter-grayscale");
+      $("#largeImage").addClass("filter-sepia");
+      }
+     document.getElementById("btnblack").onclick = function(){
+      $("#largeImage").removeClass("filter-sepia");
+      $("#largeImage").addClass("filter-grayscale");     
+       }
+      document.getElementById("btnoriginal").onclick = function(){
+      $("#largeImage").removeClass("filter-grayscale");
+      $("#largeImage").removeClass("filter-sepia");
+      }
+
+
+    </script>
+
+    <script>
+            var destinationType; // sets the format of returned value 
+            var pictureSource; // picture source
+    
+             // Wait for Cordova to connect with the device
+             document.addEventListener("deviceready",onDeviceReady,false);
+    
+            function onDeviceReady() {
+             pictureSource=navigator.camera.PictureSourceType;
+             destinationType=navigator.camera.DestinationType;
+             }  // Cordova is ready to be used!
+    
+             // Take picture using device camera and retrieve image as base64-encoded string
+             function capturePhoto() {
+              navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, allowEdit : true, saveToPhotoAlbum: true,destinationType: destinationType.DATA_URL});
+             }
+    
+             // Called if something bad happens. 
+             function onFail(message) {
+             alert('Failed because: ' + message);
+             }
+    
+             function onPhotoDataSuccess(imageData) {
+             // Uncomment to view the base64 encoded image data
+             // console.log(imageData);
+    
+             // Unhide image elements
+             largeImage.style.display = 'block';
+    
+             // Show the captured photo
+             // The inline CSS rules are used to resize the image
+             largeImage.src = "data:image/jpeg;base64," + imageData;
+                 
+             }
+    
+             // Called when a photo is successfully retrieved
+             function onPhotoURISuccess(imageURI) {
+             // Uncomment to view the image file URI 
+             // console.log(imageURI);
+    
+             // Get image handle
+             var largeImage = document.getElementById('largeImage');
+    
+             // Unhide image ele                       0ments
+             largeImage.style.display = 'block';
+             // Show the captured photo
+             // The inline CSS rules are used to resize the image
+             largeImage.src = imageURI;
+             }
+    
+              // A button will call this function to retrieve photos from the album
+             function getPhoto(source) {
+               
+               // Retrieve image file location from specified source
+               navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+                destinationType: destinationType.FILE_URI, sourceType: source });
+                 
+             }
+        </script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+</body>
+</html>
