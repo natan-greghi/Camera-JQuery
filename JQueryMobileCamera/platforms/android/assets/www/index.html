@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" type="text/css" href="css/theme-classic.css" />
      <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="plugins/cordova-plugin-camera/camera.js"></script>
     <title>Jquery Mobile Camera</title>
 </head>
 <style>
@@ -85,12 +84,6 @@ filter: sepia(100%);
              destinationType=navigator.camera.DestinationType;
              }  // Cordova is ready to be used!
     
-             // Take picture using device camera and retrieve image as base64-encoded string
-             function capturePhoto() {
-              navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, allowEdit : true,
- destinationType: destinationType.DATA_URL, saveToPhotoAlbum:true });
-             }
-    
              // Called if something bad happens. 
              function onFail(message) {
              alert('Failed because: ' + message);
@@ -123,7 +116,11 @@ filter: sepia(100%);
              // The inline CSS rules are used to resize the image
              largeImage.src = imageURI;
              }
-    
+    // Take picture using device camera and retrieve image as base64-encoded string
+             function capturePhoto() {
+              navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50, allowEdit : true,
+ destinationType: destinationType.DATA_URL, saveToPhotoAlbum:true });
+             }
               // A button will call this function to retrieve photos from the album
              function getPhoto(source) {
                
