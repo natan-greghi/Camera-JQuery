@@ -11,6 +11,9 @@
     <title>Jquery Mobile Camera</title>
 </head>
 <style>
+  #conteudo{
+    text-align: center;
+  }
  .filter-sepia {
   
   -webkit-filter: sepia(100%);
@@ -42,9 +45,9 @@ filter: sepia(100%);
          <img style="width:100%" id="largeImage" src="" /> <br>
             <button id="btnsepia"class="ui-btn ui-btn-inline">Sépia</button>
             <button id="btnblack" class="ui-btn ui-btn-inline">Preto e Branco</button>
-            <button id="btnoriginal" class="ui-btn ui-btn-inline">Original</button>
+            <button id="btnoriginal">Original</button>
         </div>
-        <div data-role="footer" id="camera-footer" data-theme="b" data-position="fixed">
+        <div data-role="footer" id="camera-footer" style="text-align:center" data-theme="b" data-position="fixed">
             <a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-camera ">  Android ver</a>
         </div>
     </div>
